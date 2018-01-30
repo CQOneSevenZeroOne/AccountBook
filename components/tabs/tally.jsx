@@ -1,6 +1,7 @@
 import React from "react";
 import Route from 'react-router-dom';
 import "../../css/tally.css";
+import $ from "jquery";
 class Xtally extends React.Component {
   constructor(props) {
     super(props);
@@ -16,59 +17,52 @@ class Xtally extends React.Component {
         }
       ],
       writepane:require("../../img/pane.png"),
-      todaydata:[
-        {
-          icon:"iconfont icon-yaopin",
-          icontitle:"药品",
-          iconprice:"20.00"
-        },
-        {
-          icon:"iconfont icon-yaopin",
-          icontitle:"药品",
-          iconprice:"20.00"
-        },
-        {
-          icon:"iconfont icon-yaopin",
-          icontitle:"药品",
-          iconprice:"20.00"
-        }
-      ]
+      todaydata:[],
+      dayin:"0.00",
+      dayout:"0.00"
     }
   }
   render() {
     var self=this;
     return (
 	    <div>
-        <div className="thismonthaccount">
-        {function() {
-          return self.state.thismonthacc.map(function(item,index) {
-              return <p key={index}><span>{item.title}</span><b>{item.accmoney}</b></p>
-          })
-        }()}
-        </div>
-        <div className="writepanebg">
-          <a href="#/accbook">
-            <img src={this.state.writepane}/>
-          </a>
+        <div className="thiswrite">
+          <div className="thismonthaccount">
+          {function() {
+            return self.state.thismonthacc.map(function(item,index) {
+                return <p key={index}><span>{item.title}</span><b>{item.accmoney}</b></p>
+            })
+          }()}
+          </div>
+          <div className="writepanebg">
+            <a href="#/accbook">
+              <img src={this.state.writepane}/>
+            </a>
+          </div>
         </div>
         <div className="todaylistbg">
-          <div className="todaytime">
+          {/* <div className="todaytime">
             <p>{function(){
               var date=new Date();
-              return date.getFullYear()+"年"+date.getMonth()+"月"+date.getDate()+"日";
+              return date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日";
             }()}</p>
-            <p>收入：<span>300.00</span></p>
-            <p>支出：<span>300.00</span></p>
-          </div>
+            <p>收入：<span>{this.state.dayin}</span></p>
+            <p>支出：<span>{this.state.dayout}</span></p>
+          </div> */}
           <div className="todaylist">
             <ul>
               {
                 function(){
                   if(self.state.todaydata.length==0){
-                    return <li style={{display:"block",textAlign:"center",border:0,fontSize:"14px",color:"#969696"}}>今天还没有记录，快去添加吧~~~</li>
+                    return <li style={{display:"block",textAlign:"center",border:0,fontSize:"14px",color:"#969696"}}>至今还没有记录，快去添加吧~~~</li>
                   }else{
                     return self.state.todaydata.map(function(item,index){
-                      return <li key={index}><p className="todayiconbg"><i className={item.icon}></i></p><p className="icontitle"><span>{item.icontitle}</span></p><p className="todayiconprice"><span>{item.iconprice}</span></p></li>
+                      return <li key={index}>
+                          <p className="todayiconbg"><i className={item.icon}></i></p>
+                          <p className="icontitle"><span>{item.icontitle}</span></p>
+                          <p className="todayiconprice"><span>{item.iconprice}</span></p>
+                          <p className="todayicondate"><span>{item.icondate}</span></p>
+                        </li>
                     })
                   }
                 }()
@@ -80,7 +74,88 @@ class Xtally extends React.Component {
     )
   }
   componentDidMount(){
-    console.log("----------在第一次渲染后调用----------");
-  } 
+    var self=this;
+    var today=new Date();
+    var todate;
+    var totime;
+    todate=today.getFullYear()+''+addZero(today.getMonth()+1)+''+addZero(today.getDate())+'';
+    totime=today.getHours()+''+addZero(today.getMinutes())+''+addZero(today.getSeconds())+'';
+    $.ajax({
+      url:"http://localhost:1703/searchcoder/today",
+      type:"post",
+      async:true,
+      data:{
+        userid:1,
+        redate:todate
+      },
+      success:function(data){
+        //今日无记录
+        if(data.length==0){
+          self.setState({
+            todaydata:[]
+          })
+        }else{//存在
+          var arr=[];
+          var dayinnum=0.00;
+          var dayoutnum=0.00;
+          for(var i in data){
+            if(data[i].reType==0){
+              dayoutnum+=Number.parseFloat(data[i].reMoney);
+              data[i].reMoney='-'+data[i].reMoney;
+            }else if(data[i].reType==1){
+              dayinnum+=Number.parseFloat(data[i].reMoney);
+            }
+            var reDate=data[i].reDate.slice(0,4)+"-"+data[i].reDate.slice(4,6)+"-"+data[i].reDate.slice(6,8);
+            var obj={
+              icon:data[i].iconPath,
+              icontitle:data[i].iconName,
+              iconprice:data[i].reMoney,
+              icondate:reDate
+            }
+            arr.push(obj);
+          }
+          self.setState({
+            todaydata:arr,
+            thismonthacc:[
+              {
+                title:"本月收入",
+                accmoney:toDecimal2(dayinnum)
+              },
+              {
+                title:"本月支出",
+                accmoney:toDecimal2(dayoutnum)
+              }
+            ]
+          })
+        } 
+      }
+    })
+  }
 }
 export default Xtally;
+//小于10补零
+function addZero(num){
+  if(num<10){
+    return '0'+num;
+  }else{
+    return num;
+  }
+}
+//小数保留两位并补零
+function toDecimal2(x) { 
+  var f = parseFloat(x); 
+  if (isNaN(f)) { 
+    return false; 
+  } 
+  var f = Math.round(x*100)/100; 
+  var s = f.toString(); 
+  var rs = s.indexOf('.'); 
+  if (rs < 0) { 
+    rs = s.length; 
+    s += '.'; 
+  } 
+  while (s.length <= rs + 2) { 
+    s += '0'; 
+  } 
+  return s; 
+} 

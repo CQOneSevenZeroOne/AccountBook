@@ -5,7 +5,6 @@ var url = require("url");
 var multer = require ("multer");
 var querystring  = require("querystring");
 var server = require("http").createServer(app);
-//var io = require("socket.io")(server);
 //实例化express
 var connection = mysql.createConnection({
 		host:"10.40.153.231",
@@ -14,12 +13,20 @@ var connection = mysql.createConnection({
 		database:"account"
 	});
 connection.connect();
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.post('/searchcoder/today', function(req, res) {
 	res.append("Access-Control-Allow-Origin","*");
-	var sql=`SELECT * FROM userinfo`;
+	var yearmonth=req.body.redate.slice(0,6);
+	var sql=`SELECT * FROM recordinfo as a,icon as b where a.userId=${req.body.userid} and a.iconId=b.iconId and a.reDate like '${yearmonth}%'`;
     connection.query(sql, function (error, results, fields) {   
-        console.log(sql);
 		res.send(results);
     });
 });
+
+
+server.listen(1703);
+console.log("开启服务器");
