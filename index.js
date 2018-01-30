@@ -5,6 +5,7 @@ import ajax from "./ajax.js";
 // router
 import { HashRouter as Router, Route, Link} from 'react-router-dom'
 import "weui";
+
 // redux
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'

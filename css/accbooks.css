@@ -1,0 +1,135 @@
+*{padding:0;margin:0;}
+.selecttab{
+    padding-bottom:5px;
+}
+.selecttab>p{
+    line-height:25px;
+    height:25px;
+    width:50%;
+    display: flex;
+    margin:5px auto;
+    color:#ddd;
+    font-size:12px;
+}
+.selecttab>p>span{
+    flex:1;
+    text-align: center;
+    border:1px solid #ddd;
+}
+.selecttab>p>.istab{
+    border:1px solid #ED4F4E;
+    color:#ED4F4E;
+}
+.selecttab>p>span:nth-of-type(1){
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+.selecttab>p>span:nth-of-type(2){
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+.writeValue{
+    display: flex;
+    height:35px;
+    line-height:35px;
+    color:white;
+    background-color: #ED4F4E;
+    padding:10px 15px; 
+}
+.writeValue>p{
+    font-size:18px;
+    flex:3;
+}
+.writeValue>input{
+    border:0;
+    width:50%;
+    
+    background-color: #ED4F4E;
+    font-size:25px;
+    color:white;
+    text-align: right;
+    outline: none;
+}
+::-webkit-input-placeholder{
+    color:rgba(255,255,255,0.4);
+    font-size:25px;
+}
+.twoTab{
+    width:90%;
+    display: flex;
+    margin:5px auto;
+}
+.twoTab>div{
+    flex:1;
+    text-align: center;
+    font-size: 12px;
+    height:25px;
+    margin:0 30px;
+    line-height:25px;
+    border-bottom:1px solid #999;
+}
+.twoTab>div>p i{
+    font-size:10px;
+}
+.cardlist{
+    width:100%;
+    display: flex;
+    flex-direction: column; 
+    flex-wrap: wrap;
+    border:1px solid #ddd;
+    position:relative;
+    z-index: 10;
+    color:#727171;
+    background-color: white;
+    box-shadow: 0px 0px 5px #ddd;
+    display: none;
+}
+.cardlist>li{
+    font-size:12px;
+    text-align:left;
+    list-style: none;
+    border-top:1px solid #ddd;
+    padding-left:10px;
+}
+.cardlist>li:nth-of-type(1){
+    border-top:0;
+}
+.cardlist1{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    border:1px solid #ddd;
+    position:relative;
+    z-index: 10;
+    color:#727171;
+    background-color: white;
+    box-shadow: 0px 0px 5px #ddd;
+    height:200px;
+    overflow: auto;
+}
+.cardlist1>li{
+    font-size:12px;
+    text-align:left;
+    list-style: none;
+    padding-left:10px;
+}
+.iconlist{
+    display: flex;
+    padding:10px 10px;
+    flex-wrap: wrap;
+}
+.iconlist>li{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width:20%;
+    padding-bottom: 5px;
+}
+.iconlist>li>i{
+    font-size:25px;
+}
+.iconlist>li>p{
+    line-height:18px;
+    height:18px;
+    font-size:12px;
+}
