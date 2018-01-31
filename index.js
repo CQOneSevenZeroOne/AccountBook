@@ -13,6 +13,21 @@ import { createStore } from 'redux'
 import Xindex from "./components/xindex.jsx";
 import Xaccbook from "./components/accbook.jsx";
 
+const store = createStore((state={
+    reId:"-1"
+},action)=>{
+    switch(action.type){
+    	case "changeId":
+    		return Object.assign({}, state, {
+            	reId: action.reId,
+              })
+              break;
+     	default:
+     		return state
+    }
+});
+
+
 ReactDOM.render(
         <Router>
             <div>
