@@ -6,7 +6,7 @@
 .writepanebg{overflow: hidden;padding-bottom: 10px;}
 .writepanebg a{display: block;width:100%;text-align: center;}
 .writepanebg a img{display: inline-block;width:25%;}
-.todaylistbg{overflow: hidden;position: relative;top:180px;padding-bottom:50px;}
+.todaylistbg{overflow: hidden;position: relative;top:225px;padding-bottom:50px;}
 .todaytime{display: flex;justify-content: space-around;font-size: 12px;color: #969696;border-bottom: 1px solid #E1E1E1;line-height: 46px;}
 .todaylist ul{list-style: none;padding:10px 20px;}
 .todaylist ul li{display: flex;justify-content:space-between;height:36px;line-height: 36px;padding:5px 0;border-bottom: 1px solid #F5F5F5;margin:5px 0;} 
