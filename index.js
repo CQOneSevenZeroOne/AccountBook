@@ -15,13 +15,21 @@ import Xaccbook from "./components/accbook.jsx";
 
 const store = createStore((state={
     reId:"-1",
+<<<<<<< HEAD
     reType:"0"
+=======
+    retype:"0"
+>>>>>>> 1bcdff30a3348b184976875375e033bfea03dfba
 },action)=>{
     switch(action.type){
     	case "changeId":
     		return Object.assign({}, state, {
                 reId: action.reId,
+<<<<<<< HEAD
                 reType: action.reType
+=======
+                reType:action.reType
+>>>>>>> 1bcdff30a3348b184976875375e033bfea03dfba
               })
               break;
      	default:
