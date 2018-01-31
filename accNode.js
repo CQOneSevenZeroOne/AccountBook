@@ -44,5 +44,12 @@ app.post('/searchcoder/today', function(req, res) {
 		res.send(results);
     });
 });
+app.post('/searchcoder/delthiscorder', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+	var sql=`delete from recordinfo where reId=${req.body.reid}`;
+    connection.query(sql, function (error, results, fields) {   
+        res.send("success");
+    });
+});
 app.listen(1703);
 console.log("开启服务器")
