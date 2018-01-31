@@ -26,7 +26,15 @@
 	color: #aaa;
 	background-color: #fff;
 }
-#reportcon{
+.reportcon{
+	display: flex;
+	justify-content: space-around;
+	padding:0.8rem 1rem;
+	border: 1px solid #eee;
+	margin-top: 1px;
+	box-sizing: border-box;
+}
+.reportin{
 	display: flex;
 	justify-content: space-around;
 	padding:0.2rem 1rem;
@@ -34,14 +42,9 @@
 	margin-top: 1px;
 	box-sizing: border-box;
 }
-#reportin{
-	display: flex;
-	justify-content: space-around;
-	padding:0.2rem 1rem;
-	border: 1px solid #eee;
-	margin-top: 1px;
-	box-sizing: border-box;
-}
-#reportcon div,#reportin div{
+.reportcon div,.reportin div{
 	flex: 1;
+}
+.reportcon p,.reportin p{
+	color:rgba(0,0,0,0.5);
 }

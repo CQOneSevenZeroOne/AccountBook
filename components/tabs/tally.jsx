@@ -1,7 +1,7 @@
 import React from "react";
 import Route from 'react-router-dom';
 import "../../css/tally.css";
-import $ from "jquery";
+
 class Xtally extends React.Component {
   constructor(props) {
     super(props);
@@ -82,20 +82,7 @@ class Xtally extends React.Component {
   }
   componentDidMount(){
     console.log("----------在第一次渲染后调用----------");
-    console.log($(".todaytime"));
-    $.ajax({
-      url:"http://localhost:1701/searchcoder/today",
-      type:"post",
-      data:{
-      },
-      success:function(data){
-        //返回空值
-        if(data.length==0){
-          //
-        }else{//存在 
-        } 
-      }
-    })
+    
   } 
 }
 export default Xtally;
