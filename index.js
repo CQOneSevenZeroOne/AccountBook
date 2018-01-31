@@ -1,10 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import "./font/iconfont.css";
-<<<<<<< HEAD
 
-=======
->>>>>>> 4ef4245789c9133a3a868dbb9cdd5fddc9e4ef10
 // router
 import { HashRouter as Router, Route, Link} from 'react-router-dom'
 import "weui";

@@ -33,13 +33,13 @@ class Xreport extends React.Component {
   render() {
     return (
 	    <div>
-	    	<div className="weui-cell">
+	    	<div className="weui-cell" style={{marginTop:'2.8rem'}}>
                 <div className="weui-cell__hd"><label className="weui-label" style={{color:'#aaa'}}>日期</label></div>
                 <div className="weui-cell__bd">
                     <input className="weui-input" type="date" style={{fontSize:'1.2rem'}} onChange={this.changeDate} id={this.state.arr[1]} value={this.state.date}/>
                 </div>
         </div>
-        <div className="weui-navbar" style={{position:'relative'}}>
+        <div className="weui-navbar" style={{position:'relative',zIndex:'0'}}>
                 <div className={this.state.id==0?'weui-navbar__item weui-bar__item_on':'weui-navbar__item'} onClick={this.changeId} id={this.state.arr[0]}>
                     <a href="#/index/report/reportcon" style={{color:this.state.id==0?'rgb(237, 79, 78)':'#000'}}>支出</a>
                 </div>

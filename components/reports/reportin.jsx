@@ -276,7 +276,7 @@ class Xreportin extends React.Component{
 	render(){
 		var _this = this;
 		return(
-			<div style={{textAlign:'center',color:'rgb(237, 79, 78)'}}>
+			<div style={{textAlign:'center',color:'rgb(237, 79, 78)',marginBottom:'2.8rem'}}>
 				日
 				{function(){
 
