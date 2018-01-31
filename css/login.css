@@ -1,0 +1,35 @@
+*{margin:0;padding: 0;}
+a{text-decoration: none;color: #000;}
+.bgimg{width: 100%;height: 160px;overflow: hidden;
+    background: #ff827a;position: relative}
+.bgimg>img{position: absolute;bottom: 0}
+
+.choice{height: 45px;line-height: 45px;text-align: center;background:#ffe5e5;}
+.choice>a{margin: 0 10px;font-size: 14px;}
+.choice> span{margin: 0 10px;font-size: 14px;}
+.content{padding:0 10px;}
+.login-item{height: 40px;line-height: 40px;border-bottom: 1px solid #ddd;overflow: hidden;margin-top: 10px;}
+.login-item>.titile{display: inline-block;width: 70px;text-align: right;}
+.login-item em{font-size: 10px;color: red;}
+.login-item input{width: 170px;height: 100%;border: 0;font-size: 15px;padding-left: 5px;outline: 0;}
+.login-btn{margin-top: 40px;}
+.login-btn>a{display: block;height: 40px;background: #ea4a64;line-height: 40px;text-align: center;color: #fff;border-radius: 5px;}
+.login-btn>span{display: block;height: 30px;line-height: 30px;color: red;}
+.hidden{opacity: 0;}
+.login-choice{font-weight: 800;}
+::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #999; 
+    font-size: 12px;
+    } 
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #999; 
+    font-size: 13px;
+    } 
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #999; 
+    font-size: 13px;
+    } 
+    :-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #999; 
+    font-size: 13px;
+    } 

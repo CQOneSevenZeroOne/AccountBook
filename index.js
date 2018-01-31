@@ -13,6 +13,8 @@ import { createStore } from 'redux'
 //选项卡组件
 import Xindex from "./components/xindex.jsx";
 import Xaccbook from "./components/accbook.jsx";
+import Login from "./components/login.jsx";
+import Reg from "./components/reg.jsx";
 
 const store = createStore((state={
     reId:"-1",
@@ -37,7 +39,8 @@ ReactDOM.render(
             <div>
                 <Route path="/index" component={Xindex}></Route>
                 <Route path="/accbook" component={Xaccbook}></Route>
-
+                <Route path="/login" component={Login}></Route>
+                <Route path="/reg" component={Reg}></Route>
             </div>
         </Router>
     </Provider>
