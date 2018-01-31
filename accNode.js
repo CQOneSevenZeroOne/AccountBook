@@ -25,15 +25,28 @@ app.post('/accbook/getIcon', function(req,res) {
 });
 app.post('/accbook/insertList', function(req,res) {
     res.append("Access-Control-Allow-Origin","*");
-    
 	var sql=`INSERT INTO recordinfo(userId,reDate,reTime,reType,reMoney,iconId,payKind,iconType) VALUES (${req.body.userId},'${req.body.reDate}','${req.body.reTime}',${req.body.reType},'${req.body.reMoney}',${req.body.iconId},'${req.body.payKind}',${req.body.iconType})`;
     connection.query(sql, function (error, results, fields) {   
         if (error) throw error;
         res.send("success");
     });
 });
-
-
+app.post('/accbook/findreId', function(req,res) {
+    res.append("Access-Control-Allow-Origin","*");
+	var sql=`select * from recordinfo as a,icon as b where a.reId = ${req.body.reId} and a.iconId=b.iconId`;
+    connection.query(sql, function (error, results, fields) {   
+        if (error) throw error;
+        res.send(JSON.stringify(results));
+    });
+});
+app.post('/accbook/updateinfo', function(req,res) {
+    res.append("Access-Control-Allow-Origin","*");
+    var sql=`update recordinfo set reTime='${req.body.reTime}',reType=${req.body.reType},reMoney='${req.body.reMoney}',iconId=${req.body.iconId},payKind='${req.body.payKind}',iconType=${req.body.iconType} where reId=${req.body.reId}`;
+    connection.query(sql, function (error, results, fields) {   
+        if (error) throw error;
+        res.send("success");
+    });
+});
 /*----------------------------------wy------------------------------------------*/
 
 app.post('/searchcoder/today', function(req, res) {

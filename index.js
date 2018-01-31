@@ -14,12 +14,14 @@ import Xindex from "./components/xindex.jsx";
 import Xaccbook from "./components/accbook.jsx";
 
 const store = createStore((state={
-    reId:"-1"
+    reId:"-1",
+    reType:"0"
 },action)=>{
     switch(action.type){
     	case "changeId":
     		return Object.assign({}, state, {
-            	reId: action.reId,
+                reId: action.reId,
+                reType: action.reType
               })
               break;
      	default:
@@ -29,6 +31,7 @@ const store = createStore((state={
 
 
 ReactDOM.render(
+    <Provider store={store}>
         <Router>
             <div>
                 <Route path="/index" component={Xindex}></Route>
@@ -36,5 +39,6 @@ ReactDOM.render(
 
             </div>
         </Router>
+    </Provider>
 	,
 	document.querySelector("#app"))

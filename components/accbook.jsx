@@ -1,6 +1,8 @@
 import React from "react";
 import "../css/accbooks.css";
+import {connect} from 'react-redux';
 import $ from "jquery"
+
 class Xaccbook extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class Xaccbook extends React.Component {
     return (
       <div>
         <header style={{ lineHeight: '40px', height: '40px',width:"100%",fontSize: '18px', textAlign: 'center', color: '#ED4F4E', background: 'white', position: 'fixed', top: '0px',display:"flex"}}>
-          <a href="#/index/tally" style={{ fontStyle: "normal",  color: "#ED4F4E",flex:"1",textAlign:"left",paddingLeft:"10px"}} className="iconfont icon-arrow-left"></a>
+          <a href="#/index/tally" style={{ fontStyle: "normal",  color: "#ED4F4E",flex:"1",textAlign:"left",paddingLeft:"10px"}} className="iconfont icon-arrow-left" onClick={this.props.changeIded()}></a>
           <p style={{flex:"4"}}>日常账本</p>
           <span style={{ fontSize: "15px",flex:"1",textAlign:"right",paddingRight:"10px"}} onClick={this.insertList}>完成</span>
           
@@ -65,8 +67,8 @@ class Xaccbook extends React.Component {
             </ul>
           </div>
           <div>
-            <p onClick={this.seltime}><span>{this.state.timeName}</span><i className="iconfont icon-xialasanjiao"></i></p>
-            <ul className="cardlist1" onClick={this.changeTime} style={{ display: this.state.timebools == true ? "block" : "none" }}>
+            <p onClick={this.seltime}><span>{this.state.timeName}</span><i className="iconfont icon-xialasanjiao" ></i></p>
+            <ul className="cardlist1" onClick={this.changeTime} style={{ display: (this.state.timebools == true && this.props.reId=="-1")?"block":"none"}}>
               {function () {
                 return _this.state.time.map(function (item, index) {
                   return <li key={index}>{item}</li>
@@ -85,7 +87,6 @@ class Xaccbook extends React.Component {
             })
           }()}
         </ul>
-
         <div id="toast" style={{ display: this.state.errorbools == true ? "block" : "none" }}>
           <div className="weui-mask_transparent"></div>
           <div className="weui-toast" style={{ height: "30px", minHeight: "30px", top: "45%" }}>
@@ -97,12 +98,12 @@ class Xaccbook extends React.Component {
   }
   componentDidMount() {
     var _this = this;
+    //取小图标
     $.ajax({
       url: "http://localhost:1703/accbook/getIcon",
       type: "POST",
-      async: true,
       data: {
-        reType: _this.state.sumkind
+        reType: _this.props.reType
       },
       success(data) {
         var arr = JSON.parse(data);
@@ -113,6 +114,34 @@ class Xaccbook extends React.Component {
         })
       }
     })
+    //判断是修改操作
+    if(this.props.reId!="-1"){
+      $.ajax({
+        url:"http://localhost:1703/accbook/findreId",
+        type:"POST",
+        data:{
+          reId:_this.props.reId,
+        },
+        success(data){
+          var arr = JSON.parse(data);
+          var time1=arr[0].reDate.slice(0,4)+"-"+arr[0].reDate.slice(4,6)+"-"+arr[0].reDate.slice(6,8);
+          var arr1 =[];arr.push(time1);
+          _this.setState({
+            time:arr1,
+            timeName:time1,
+            skind: {
+              name: arr[0].iconName,
+              kid: 1,
+              iconType: arr[0].iconType,
+            },
+            cardName: arr[0].payKind,
+            sumkind:arr[0].reType
+          });
+          document.getElementById("money").value=arr[0].reMoney;
+        }
+      })
+    }
+    
   }
   //改变记录的种类，支出、收入
   changkind(e) {
@@ -205,7 +234,6 @@ class Xaccbook extends React.Component {
   insertList() {
     var _this = this;
     var userId = 1;
-    
     var input = document.getElementById("money").value;
     var is = iserror(input);
     if(is.bools==false){
@@ -221,24 +249,51 @@ class Xaccbook extends React.Component {
       var reMoney = is.money;
       var reDate = datatime(this.state.timeName);
       var reTime = getTime();
-      $.ajax({
-        url:"http://localhost:1703/accbook/insertList",
-        type:"POST",
-        async:true,
-        data:{
-          userId:userId,
-          reType:_this.state.sumkind,
-          payKind:_this.state.cardName,
-          iconType:_this.state.skind.iconType,
-          iconId:_this.state.skind.kid,
-          reMoney:reMoney,
-          reDate:reDate,
-          reTime:reTime
-        },
-        success(data){
-          location.href="http://localhost:12345/#/index/tally";
-        }
-      })
+      if(this.props.reId=="-1"){
+          $.ajax({
+            url:"http://localhost:1703/accbook/insertList",
+            type:"POST",
+            data:{
+              userId:userId,
+              reType:_this.state.sumkind,
+              payKind:_this.state.cardName,
+              iconType:_this.state.skind.iconType,
+              iconId:_this.state.skind.kid,
+              reMoney:reMoney,
+              reDate:reDate,
+              reTime:reTime
+            },
+            success(data){
+              if(data=="success"){
+                 location.href="http://localhost:12345/#/index/tally";
+              }
+             
+            }
+          })
+      }else{
+        $.ajax({
+          url:"http://localhost:1703/accbook/updateinfo",
+          type:"POST",
+          data:{
+              reId:_this.props.reId,
+              reType:_this.state.sumkind,
+              payKind:_this.state.cardName,
+              iconType:_this.state.skind.iconType,
+              iconId:_this.state.skind.kid,
+              reMoney:reMoney,
+              reDate:reDate,
+              reTime:reTime
+          },
+          success(data){
+            if(data=="success"){
+              _this.props.changeIded();
+              location.href="http://localhost:12345/#/index/tally";
+            }
+            
+          }
+        })
+      }
+      
     }
   }
 }
@@ -346,4 +401,18 @@ function iserror(mon) {
   }
   return obj;
 }
-export default Xaccbook;
+
+
+export default connect((state)=>{
+	return state
+},(dispatch)=>{
+	return {
+		changeIded(){
+			dispatch({
+				type:"changeId",
+        reId:"-1",
+        reType:"0"
+			})	
+		}
+	}
+})(Xaccbook);
