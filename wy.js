@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.post('/searchcoder/today', function(req, res) {
 	res.append("Access-Control-Allow-Origin","*");
 	var yearmonth=req.body.redate.slice(0,6);
-	var sql=`SELECT * FROM recordinfo as a,icon as b where a.userId=${req.body.userid} and a.iconId=b.iconId and a.reDate like '${yearmonth}%'`;
+	var sql=`SELECT * FROM recordinfo as a,icon as b where a.userId=${req.body.userid} and a.iconId=b.iconId and a.reDate like '${yearmonth}%' order by a.reDate DESC`;
     connection.query(sql, function (error, results, fields) {   
 		res.send(results);
     });
