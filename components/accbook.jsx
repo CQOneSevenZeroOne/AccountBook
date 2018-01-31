@@ -40,7 +40,7 @@ class Xaccbook extends React.Component {
     return (
       <div>
         <header style={{ lineHeight: '40px', height: '40px',width:"100%",fontSize: '18px', textAlign: 'center', color: '#ED4F4E', background: 'white', position: 'fixed', top: '0px',display:"flex"}}>
-          <a href="#/index/tally" style={{ fontStyle: "normal",  color: "#ED4F4E",flex:"1",textAlign:"left",paddingLeft:"10px"}} className="iconfont icon-arrow-left" onClick={this.props.changeIded()}></a>
+          <a href="#/index/tally" style={{ fontStyle: "normal",  color: "#ED4F4E",flex:"1",textAlign:"left",paddingLeft:"10px"}} className="iconfont icon-arrow-left" ></a>
           <p style={{flex:"4"}}>日常账本</p>
           <span style={{ fontSize: "15px",flex:"1",textAlign:"right",paddingRight:"10px"}} onClick={this.insertList}>完成</span>
           

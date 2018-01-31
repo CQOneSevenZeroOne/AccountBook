@@ -195,6 +195,7 @@ class Xtally extends React.Component {
     })
   }
   componentDidMount(){
+    this.props.resetId();
     var self=this;
     var today=new Date();
     var todate;
@@ -266,10 +267,14 @@ export default connect((state)=>{
         reId:this.state.reid,
         reType:this.state.retype
       })	
-      this.setState({
-        dialogisshow:false
-      })
-		}
+    },
+    resetId(){
+      dispatch({
+				type:"changeId",
+        reId:"-1",
+        reType:"0"
+      })	
+    }
 	}
 })(Xtally);
 //小于10补零
