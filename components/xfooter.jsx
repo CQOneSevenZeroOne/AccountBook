@@ -12,7 +12,6 @@ class Xfooter extends React.Component {
   }
   render() {
     return (<div className="weui-tab">
-      <div className="weui-tab__panel"></div>
       <div className="weui-tabbar" style={{
           position: "fixed"
         }}>
