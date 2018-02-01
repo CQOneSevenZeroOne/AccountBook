@@ -1,7 +1,8 @@
 import React from "react";
 import "../css/accbooks.css";
 import {connect} from 'react-redux';
-import $ from "jquery"
+import $ from "jquery";
+import cookie from "jquery.cookie";
 
 class Xaccbook extends React.Component {
   constructor(props) {
@@ -233,7 +234,7 @@ class Xaccbook extends React.Component {
   //添加数据
   insertList() {
     var _this = this;
-    var userId = 1;
+    
     var input = document.getElementById("money").value;
     var is = iserror(input);
     if(is.bools==false){
@@ -249,7 +250,9 @@ class Xaccbook extends React.Component {
       var reMoney = is.money;
       var reDate = datatime(this.state.timeName);
       var reTime = getTime();
-      if(this.props.reId=="-1"){
+      if(this.props.reId=="-1"){ 
+        var user = JSON.parse($.cookie("user"));
+        var userId = user.userid;
           $.ajax({
             url:"http://localhost:1703/accbook/insertList",
             type:"POST",
@@ -336,7 +339,7 @@ function datatime(data) {
 //获取当前时分秒
 function getTime() {
   var time = new Date;
-  var dd = stringNum(time.getHours()) + "" + stringNum(time.getMinutes()) + "" + stringNum(time.getMilliseconds()) + "";
+  var dd = stringNum(time.getHours()) + "" + stringNum(time.getMinutes()) + "" + stringNum(time.getSeconds()) + "";
   return dd;
 }
 //判断价钱格式是否输入错误
