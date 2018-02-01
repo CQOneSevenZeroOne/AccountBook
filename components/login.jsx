@@ -72,7 +72,7 @@ class Login extends React.Component {
                             </span>
                         </div>
                         <div className="login-item password">
-                            <span className="titile">密码：</span>
+                            <span className="titile">密&nbsp;&nbsp;&nbsp;码：</span>
                             <input type="password" onChange={this.changeuserpswd} onBlur={this.cheackuserpswdvalue} placeholder="设置密码（6-12的数字字母混合）"/>
                             <span className={this.state.IsShowpswd?"":"hidden"}>
                                 <i className="clearcon">×</i>
@@ -80,7 +80,7 @@ class Login extends React.Component {
                             </span>
                         </div>
                         <div className="login-item password">
-                            <span className="titile">再次：</span>
+                            <span className="titile">再&nbsp;&nbsp;&nbsp;次：</span>
                             <input type="password" onBlur={this.cheackuserpswd} placeholder="请再次输入"/>
                             <span className={this.state.IsShowpswd1?"":"hidden"}>
                                 <i className="clearcon">×</i>
@@ -110,7 +110,6 @@ class Login extends React.Component {
                     username:event.target.value
                 },
                 success:function(data){
-                    console.log(data)
                     // data=0时表示为用户名为空，
                     if(data=="1"){
                         _this.setState({IsShowusernamebool:false})
@@ -157,9 +156,7 @@ class Login extends React.Component {
                 },
                 success:function(data){
                     // data=0时表示为手机用户为空，
-                    console.log(data)
                     if(data=="1"){
-                        console.log("重复了")
                         _this.setState({IsShowphone1:true})
                         _this.setState({IsShowphonebool:false})
 
@@ -168,7 +165,6 @@ class Login extends React.Component {
                             _this.setState({IsShowphone:false})
                         },2000);
                     }else{
-                        console.log("成功了")
                         _this.setState({IsShowphone1:false})
                         _this.setState({IsShowphonebool:true})
                     }
@@ -208,10 +204,9 @@ class Login extends React.Component {
     }
     loginbtn(){
         var bool =(this.state.IsShowphonebool&&this.state.IsShowusernamebool&&this.state.IsShowpswdbool&&this.state.IsShowpswd1bool)
-        // console.log(this.state.userphone,this.state.username,this.state.userpswd)
         // var bool = 1;
         if(bool){
-            console.log("开始发送")
+            // console.log("开始发送")
             var _this =this;
             $.ajax({
                 url:"http://localhost:1703/login",
@@ -223,15 +218,15 @@ class Login extends React.Component {
                 },
                 success:function(data){
                     if(data=="1"){
-                        console.log("注册成功")
+                        // console.log("注册成功")
                         location.href="/#/reg"
                     }else{
-                        console.log("注册失败")
+                        // console.log("注册失败")
                     }
                 }
             })
         }else{
-            console.log("注册注册有误，请检查")
+            // console.log("注册注册有误，请检查")
             this.setState({IsShowloginsucc:true})
             this.setState({IsShowloginerr:true})
             var _this =this;

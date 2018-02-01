@@ -48,7 +48,7 @@ class Reg extends React.Component {
                             </span>
                         </div>
                         <div className="login-item password">
-                            <span className="titile">密码：</span>
+                            <span className="titile">密&nbsp;&nbsp;&nbsp;码：</span>
                             <input type="password"  onChange={this.getuserpassword} onBlur={this.checkuserpassword} placeholder="请输入密码"/>
                             <span className="hidden" className={this.state.IsShowuserpassword?"show":"hidden"}>
                                 <i className="clearcon">×</i>
@@ -80,7 +80,6 @@ class Reg extends React.Component {
                     userphone:event.target.value
                 },
                 success:function(data){
-                    console.log(data)
                     if(data=="0"){
                         
                         _this.setState({IsShowusername:true})
@@ -98,7 +97,6 @@ class Reg extends React.Component {
                 },2000);
         //判断使用户名登录
         }else{
-            console.log("用户名登录")
             $.ajax({
                 url:"http://localhost:1703/checkusername",
                 type:"get",
@@ -106,7 +104,6 @@ class Reg extends React.Component {
                     username:event.target.value
                 },
                 success:function(data){
-                    console.log(data)
                     // data=0时表示为用户名为空，显示提示
                     if(data=="0"){
                         _this.setState({IsShowusername:true})
@@ -134,8 +131,6 @@ class Reg extends React.Component {
     Regbtn(){
         if((!this.state.IsShowuserpassword)&&(!this.state.IsShowusername)&&(this.state.username!="")&&(this.state.userpassword!="")){
             var _this = this;
-            console.log("成功发送")
-            console.log(this.state.userpassword)
             $.ajax({
                 url:"http://localhost:1703/reg",
                 type:"post",
@@ -146,20 +141,21 @@ class Reg extends React.Component {
                 success:function(data){
                     //data =="失败时，表示失败"
                     if(data=="失败"){
-                        console.log("登录失败")
                         _this.setState({IsShowtip:true})
                         setTimeout(() => {
                             _this.setState({IsShowtip:false})
                         },2000);
                     }else{
-                        console.log("登录成功")
-                        $.cookie("user",parseInt(data));
+                        var obj={
+                            userid:data
+                        }
+                        $.cookie("user",obj);
                         location.href="/#/index/tally"
                     }
                 }
             })
         }else{
-            console.log("条件不满足")
+            // console.log("条件不满足")
         }
     }
 
