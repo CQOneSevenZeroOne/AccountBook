@@ -42,6 +42,7 @@ app.post('/accbook/findreId', function(req,res) {
 app.post('/accbook/updateinfo', function(req,res) {
     res.append("Access-Control-Allow-Origin","*");
     var sql=`update recordinfo set reTime='${req.body.reTime}',reType=${req.body.reType},reMoney='${req.body.reMoney}',iconId=${req.body.iconId},payKind='${req.body.payKind}',iconType=${req.body.iconType} where reId=${req.body.reId}`;
+    
     connection.query(sql, function (error, results, fields) {   
         if (error) throw error;
         res.send("success");
@@ -62,6 +63,121 @@ app.post('/searchcoder/delthiscorder', function(req, res) {
 	var sql=`delete from recordinfo where reId=${req.body.reid}`;
     connection.query(sql, function (error, results, fields) {   
         res.send("success");
+    });
+});
+
+
+/*----------------------------------ls------------------------------------------*/
+app.post("/giveDate",(req,res)=>{
+	res.append("Access-Control-Allow-Origin","*");
+	console.log(req.body);
+	var year = req.body.year+"%";
+	var retype = parseInt(req.body.retype);
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${req.body.year}%'`;
+	connection.query(s,(error,result1)=>{
+		if(error) throw error;
+		console.log(result1);
+		res.send(JSON.stringify(result1));
+	})
+})
+app.post("/giveMonth",(req,res)=>{
+	res.append("Access-Control-Allow-Origin","*");
+	console.log(req.body);
+	var year = req.body.year+req.body.month+"%";
+	var retype = parseInt(req.body.retype);
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${year}'`;
+	connection.query(s,(error,result)=>{
+		if(error) throw error;
+		console.log(result);
+		res.send(JSON.stringify(result));
+	})
+})
+app.post("/giveDay",(req,res)=>{
+	res.append("Access-Control-Allow-Origin","*");
+	console.log(req.body);
+	var year = req.body.year+req.body.month+req.body.day+"%";
+	var retype = parseInt(req.body.retype);
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${year}'`;
+	connection.query(s,(error,result)=>{
+		if(error) throw error;
+		console.log(result);
+		res.send(JSON.stringify(result));
+	})
+})
+//-----------------------------扈冲------------------------------------------------
+// 用户登录时查找用户是否存在
+app.get('/checkusername', function(req, res) {
+	res.append("Access-Control-Allow-Origin","*");
+	
+	var sql=`SELECT * FROM userinfo where uName='${req.query.username}'`;
+	// console.log(sql)
+    connection.query(sql, function (error, results, fields) {
+		if(results==""){
+			res.send("0");
+		}else{
+			res.send("1");
+		}
+    });
+});
+// 电话号码登录时查找用户是否存在
+app.get('/checkuserphone', function(req, res) {
+	res.append("Access-Control-Allow-Origin","*");
+	console.log(req.query.userphone)
+	var sql=`SELECT * FROM userinfo where uPhone='${req.query.userphone}'`;
+    connection.query(sql, function (error, results, fields) {
+		if(results==""){
+			res.send("0");
+		}else{
+			res.send("1");
+		}
+    });
+});
+//登录页面
+app.post('/reg', function(req, res) {
+	res.append("Access-Control-Allow-Origin","*");
+	// console.log(req.body.username,req.body.password)
+	//用电话登录
+	if(req.body.username.length==11){
+		var sql=`SELECT * FROM userinfo where uPhone='${req.body.username}'`;
+		connection.query(sql, function (error, results, fields) {
+			if(results==""){
+				res.send("失败")
+			}else{
+				// console.log(results[0].uPhone)
+				if(results[0].uPass==req.body.password){
+					var str = results[0].userId+"";
+					res.send(str)
+				}else{
+					res.send("失败")
+				}
+			}
+		});
+	// 用户名登录
+	}else{
+		var sql=`SELECT * FROM userinfo where uName='${req.body.username}'`;
+		// console.log(sql)
+		connection.query(sql, function (error, results, fields) {
+			if(results==""){
+				res.send("失败")
+			}else{
+				// console.log(results[0].uPhone)
+				if(results[0].uPass==req.body.password){
+					var str = results[0].userId+"";
+					res.send(str)
+				}else{
+					res.send("失败")
+				}
+			}
+		});
+	}
+    
+});
+//注册用户
+app.post('/login', function(req, res) {
+	res.append("Access-Control-Allow-Origin","*");
+	var sql=`INSERT INTO userinfo( uPhone, uPass, uName) VALUES ('${req.body.userphone}','${req.body.userpswd}','${req.body.username}')`
+	connection.query(sql, function (error, results, fields) {
+		res.send("1")
     });
 });
 app.listen(1703);

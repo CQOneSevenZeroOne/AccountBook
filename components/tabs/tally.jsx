@@ -99,11 +99,12 @@ class Xtally extends React.Component {
       temptype=e.target.parentNode.parentNode.getAttribute("data-type");
     }else if(e.target.tagName=="P"){
       tempid=e.target.parentNode.getAttribute("data-id");
-      temptype=e.target.parentNode.parentNode.getAttribute("data-type");
+      temptype=e.target.parentNode.getAttribute("data-type");
     }else if(e.target.tagName=="LI"){
       tempid=e.target.getAttribute("data-id");
-      temptype=e.target.parentNode.parentNode.getAttribute("data-type");
+      temptype=e.target.getAttribute("data-type");
     }
+  
     this.setState({
       dialogisshow:true,
       reid:tempid,
