@@ -287,36 +287,63 @@ class Xreportin extends React.Component{
 			<div style={{textAlign:'center',color:'rgb(237, 79, 78)',marginBottom:'2.8rem'}}>
 				日
 				{function(){
-
+					var flag = 0;
 					return _this.state.arrr.map(function(item,index){
-						return <div key={index} className="reportcon">
+						if(item.buy!="0.00"){
+							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arrr.length);*/
+							if(flag==_this.state.arrr.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此日消息哦</p>
+						}												
 					})
+				
 				}()}
 				月
 				{function(){
-
+					var flag = 0;
 					return _this.state.arry.map(function(item,index){
-						return <div key={index} className="reportcon">
+						if(item.buy!="0.00"){
+							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arry.length);*/
+							if(flag==_this.state.arry.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此月消息哦</p>
+						}												
 					})
+				
 				}()}
 				年
 				{function(){
-
+					var flag = 0;
 					return _this.state.arr.map(function(item,index){
-						return <div key={index} className="reportcon">
+						if(item.buy!="0.00"){
+							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arr.length);*/
+							if(flag==_this.state.arr.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此年消息哦</p>
+						}												
 					})
+				
 				}()}
 
 			</div>
