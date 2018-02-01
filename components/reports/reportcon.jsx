@@ -1,5 +1,6 @@
 import React from "react";
 import $ from "jquery";
+import { router, Route, hashHistory } from 'react-router';
 class Xreportcon extends React.Component{
 	constructor(props){
 		super(props);
@@ -332,6 +333,7 @@ class Xreportcon extends React.Component{
 		})
 	}else{
 		console.log("请登录");
+		location.href = "http://localhost:12345/#/reg";
 	}
 	}
 	render(){
