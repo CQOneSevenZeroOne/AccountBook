@@ -3,6 +3,7 @@ import Route from 'react-router-dom';
 import {connect} from 'react-redux';
 import "../../css/tally.css";
 import $ from "jquery";
+import cookie from "jquery.cookie";
 class Xtally extends React.Component {
   constructor(props) {
     super(props);
@@ -146,7 +147,7 @@ class Xtally extends React.Component {
       type:"post",
       async:false,
       data:{
-        userid:1,
+        userid:JSON.parse($.cookie("user")).userid,
         redate:todate
       },
       success:function(data){
@@ -208,7 +209,7 @@ class Xtally extends React.Component {
       type:"post",
       async:true,
       data:{
-        userid:1,
+        userid:JSON.parse($.cookie("user")).userid,
         redate:todate
       },
       success:function(data){

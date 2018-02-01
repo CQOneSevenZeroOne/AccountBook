@@ -149,7 +149,7 @@ class Reg extends React.Component {
                         var obj={
                             userid:data
                         }
-                        $.cookie("user",obj);
+                        $.cookie("user",JSON.stringify(obj));
                         location.href="/#/index/tally"
                     }
                 }
