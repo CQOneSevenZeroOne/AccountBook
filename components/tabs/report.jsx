@@ -40,11 +40,11 @@ class Xreport extends React.Component {
                 </div>
         </div>
         <div className="weui-navbar" style={{position:'relative',zIndex:'0'}}>
-                <div className={this.state.id==0?'weui-navbar__item weui-bar__item_on':'weui-navbar__item'} onClick={this.changeId} id={this.state.arr[0]}>
-                    <a href="#/index/report/reportcon" style={{color:this.state.id==0?'rgb(237, 79, 78)':'#000'}}>支出</a>
+                <div style={{padding:'0px',height:'3.5rem',lineHeight:'3.5rem'}} className={this.state.id==0?'weui-navbar__item weui-bar__item_on':'weui-navbar__item'} onClick={this.changeId} id={this.state.arr[0]}>
+                    <a href="#/index/report/reportcon" style={{display:'inline-block',width:'100%',height:'100%',color:this.state.id==0?'rgb(237, 79, 78)':'#000'}}>支出</a>
                 </div>
-                <div className={this.state.id==1?'weui-navbar__item weui-bar__item_on':'weui-navbar__item'} onClick={this.changeId} id={this.state.arr[1]}>
-                    <a href="#/index/report/reportin" style={{color:this.state.id==1?'rgb(237, 79, 78)':'#000'}}>收入</a>
+                <div style={{padding:'0px',height:'3.5rem',lineHeight:'3.5rem'}} className={this.state.id==1?'weui-navbar__item weui-bar__item_on':'weui-navbar__item'} onClick={this.changeId} id={this.state.arr[1]}>
+                    <a href="#/index/report/reportin" style={{display:'inline-block',width:'100%',height:'100%',color:this.state.id==1?'rgb(237, 79, 78)':'#000'}}>收入</a>
                 </div>
         </div>
        {/* <Route path="/index/report/reportcon" component={Xreportcon} name={this.state.name}></Route>

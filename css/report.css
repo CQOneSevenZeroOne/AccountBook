@@ -30,7 +30,7 @@
 	display: flex;
 	justify-content: space-around;
 	padding:0.8rem 1rem;
-	border: 1px solid #eee;
+	border-bottom: 1px solid #eee;
 	margin-top: 1px;
 	box-sizing: border-box;
 }
@@ -45,6 +45,21 @@
 .reportcon div,.reportin div{
 	flex: 1;
 }
+.reportcon div:nth-of-type(1),.reportcon div:nth-of-type(1){
+	text-align: left;
+}
+.reportcon div:nth-of-type(3),.reportcon div:nth-of-type(3){
+	text-align: right;
+}
 .reportcon p,.reportin p{
-	color:rgba(0,0,0,0.5);
+	color:rgba(0,0,0,1);
+}
+.reportcon div:nth-of-type(1) p,.reportcon div:nth-of-type(1) p{
+	color: #A0A0A0;
+}
+.reportcon div:nth-of-type(2) p,.reportcon div:nth-of-type(2) p{
+	color: #323232;
+}
+.reportcon div:nth-of-type(3) p,.reportcon div:nth-of-type(3) p{
+	color: #3A1818;
 }
