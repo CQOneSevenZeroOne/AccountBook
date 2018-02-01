@@ -32,11 +32,14 @@ class Xreportin extends React.Component{
 		var retype = this.props.retype;
 		var arr = date.split("-");
 		var sum = 0;
+		if($.cookie('user')){
+			var id = JSON.parse($.cookie('user')).userid;
 		var obj = {
 			year:arr[0],
 			month:arr[1],
 			day:arr[2],
-			retype:retype
+			retype:retype,
+			id:id
 		}
 		console.log(obj);
 		//年
@@ -272,6 +275,9 @@ class Xreportin extends React.Component{
 				}
 			}
 		})
+		}else{
+		console.log("请登录");
+	}
 	}
 	render(){
 		var _this = this;

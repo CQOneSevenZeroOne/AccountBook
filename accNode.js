@@ -73,7 +73,7 @@ app.post("/giveDate",(req,res)=>{
 	console.log(req.body);
 	var year = req.body.year+"%";
 	var retype = parseInt(req.body.retype);
-	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${req.body.year}%'`;
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${req.body.year}%'`;
 	connection.query(s,(error,result1)=>{
 		if(error) throw error;
 		console.log(result1);
@@ -85,7 +85,7 @@ app.post("/giveMonth",(req,res)=>{
 	console.log(req.body);
 	var year = req.body.year+req.body.month+"%";
 	var retype = parseInt(req.body.retype);
-	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${year}'`;
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${year}'`;
 	connection.query(s,(error,result)=>{
 		if(error) throw error;
 		console.log(result);
@@ -97,7 +97,7 @@ app.post("/giveDay",(req,res)=>{
 	console.log(req.body);
 	var year = req.body.year+req.body.month+req.body.day+"%";
 	var retype = parseInt(req.body.retype);
-	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = 1 and reDate like '${year}'`;
+	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${year}'`;
 	connection.query(s,(error,result)=>{
 		if(error) throw error;
 		console.log(result);
