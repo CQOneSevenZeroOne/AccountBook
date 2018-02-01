@@ -98,7 +98,12 @@ class Xaccbook extends React.Component {
     )
   }
   componentDidMount() {
-    var _this = this;
+    if(document.cookie==""){
+      location.href="http://localhost:12345/#/reg";
+    }else if($.cookie("user")==undefined){
+      location.href="http://localhost:12345/#/reg";
+    }else{
+      var _this = this;
     //取小图标
     $.ajax({
       url: "http://localhost:1703/accbook/getIcon",
@@ -142,6 +147,8 @@ class Xaccbook extends React.Component {
         }
       })
     }
+    }
+    
     
   }
   //改变记录的种类，支出、收入
