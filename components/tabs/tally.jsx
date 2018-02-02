@@ -3,6 +3,7 @@ import Route from 'react-router-dom';
 import {connect} from 'react-redux';
 import "../../css/tally.css";
 import $ from "jquery";
+import cookie from "jquery.cookie";
 class Xtally extends React.Component {
   constructor(props) {
     super(props);
@@ -146,7 +147,7 @@ class Xtally extends React.Component {
       type:"post",
       async:false,
       data:{
-        userid:1,
+        userid:JSON.parse($.cookie("user")).userid,
         redate:todate
       },
       success:function(data){
@@ -196,66 +197,76 @@ class Xtally extends React.Component {
     })
   }
   componentDidMount(){
-    this.props.resetId();
-    var self=this;
-    var today=new Date();
-    var todate;
-    var totime;
-    todate=today.getFullYear()+''+addZero(today.getMonth()+1)+''+addZero(today.getDate())+'';
-    totime=today.getHours()+''+addZero(today.getMinutes())+''+addZero(today.getSeconds())+'';
-    $.ajax({
-      url:"http://localhost:1703/searchcoder/today",
-      type:"post",
-      async:true,
-      data:{
-        userid:1,
-        redate:todate
-      },
-      success:function(data){
-        //今日无记录
-        if(data.length==0){
-          self.setState({
-            todaydata:[]
-          })
-        }else{//存在
-          var arr=[];
-          var dayinnum=0.00;
-          var dayoutnum=0.00;
-          for(var i in data){
-            if(data[i].reType==0){
-              dayoutnum+=Number.parseFloat(data[i].reMoney);
-              data[i].reMoney='-'+data[i].reMoney;
-            }else if(data[i].reType==1){
-              dayinnum+=Number.parseFloat(data[i].reMoney);
-            }
-            var reDate=data[i].reDate.slice(0,4)+"-"+data[i].reDate.slice(4,6)+"-"+data[i].reDate.slice(6,8);
-            var obj={
-              icon:data[i].iconPath,
-              icontitle:data[i].iconName,
-              iconprice:data[i].reMoney,
-              icondate:reDate,
-              iconid:data[i].iconId,
-              reid:data[i].reId,
-              retype:data[i].reType
-            }
-            arr.push(obj);
-          }
-          self.setState({
-            todaydata:arr,
-            thismonthacc:[
-              {
-                title:"本月收入",
-                accmoney:toDecimal2(dayinnum)
-              },
-              {
-                title:"本月支出",
-                accmoney:toDecimal2(dayoutnum)
+    if(document.cookie==""){
+      console.log(0)
+      location.href="http://localhost:12345/#/reg";
+    }else if($.cookie("user")==undefined){
+      console.log(1)
+      location.href="http://localhost:12345/#/reg";
+    }else{
+      console.log(2)
+        this.props.resetId();
+      var self=this;
+      var today=new Date();
+      var todate;
+      var totime;
+      todate=today.getFullYear()+''+addZero(today.getMonth()+1)+''+addZero(today.getDate())+'';
+      totime=today.getHours()+''+addZero(today.getMinutes())+''+addZero(today.getSeconds())+'';
+      $.ajax({
+        url:"http://localhost:1703/searchcoder/today",
+        type:"post",
+        async:true,
+        data:{
+          userid:JSON.parse($.cookie("user")).userid,
+          redate:todate
+        },
+        success:function(data){
+          //今日无记录
+          if(data.length==0){
+            self.setState({
+              todaydata:[]
+            })
+          }else{//存在
+            var arr=[];
+            var dayinnum=0.00;
+            var dayoutnum=0.00;
+            for(var i in data){
+              if(data[i].reType==0){
+                dayoutnum+=Number.parseFloat(data[i].reMoney);
+                data[i].reMoney='-'+data[i].reMoney;
+              }else if(data[i].reType==1){
+                dayinnum+=Number.parseFloat(data[i].reMoney);
               }
-            ]
-          })
-        } 
-      }
-    })
+              var reDate=data[i].reDate.slice(0,4)+"-"+data[i].reDate.slice(4,6)+"-"+data[i].reDate.slice(6,8);
+              var obj={
+                icon:data[i].iconPath,
+                icontitle:data[i].iconName,
+                iconprice:data[i].reMoney,
+                icondate:reDate,
+                iconid:data[i].iconId,
+                reid:data[i].reId,
+                retype:data[i].reType
+              }
+              arr.push(obj);
+            }
+            self.setState({
+              todaydata:arr,
+              thismonthacc:[
+                {
+                  title:"本月收入",
+                  accmoney:toDecimal2(dayinnum)
+                },
+                {
+                  title:"本月支出",
+                  accmoney:toDecimal2(dayoutnum)
+                }
+              ]
+            })
+          } 
+        }
+      })
+    }
+    
   }
 }
 export default connect((state)=>{

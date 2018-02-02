@@ -1,5 +1,6 @@
 import React from "react";
 import $ from "jquery";
+import { router, Route, hashHistory } from 'react-router';
 class Xreportcon extends React.Component{
 	constructor(props){
 		super(props);
@@ -32,11 +33,15 @@ class Xreportcon extends React.Component{
 		var retype = this.props.retype;
 		var arr = date.split("-");
 		var sum = 0;
+		if($.cookie('user')){
+			var id = JSON.parse($.cookie('user')).userid;
+		
 		var obj = {
 			year:arr[0],
 			month:arr[1],
 			day:arr[2],
-			retype:retype
+			retype:retype,
+			id:id
 		}
 		console.log(obj);
 		//年
@@ -326,6 +331,10 @@ class Xreportcon extends React.Component{
 				}
 			}
 		})
+	}else{
+		console.log("请登录");
+		location.href = "http://localhost:12345/#/reg";
+	}
 	}
 	render(){
 		var _this = this;
@@ -333,45 +342,63 @@ class Xreportcon extends React.Component{
 			<div style={{textAlign:'center',color:'rgb(237, 79, 78)',marginBottom:'2.8rem'}}>
 				日
 				{function(){
-					var flag = false;
+					var flag = 0;
 					return _this.state.arrr.map(function(item,index){
-						
-							flag = true;
+						if(item.buy!="0.00"){
 							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
-											
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arrr.length);*/
+							if(flag==_this.state.arrr.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此日消息哦</p>
+						}												
 					})
+				
 				}()}
 				月
 				{function(){
-					var flag = false;
+					var flag = 0;
 					return _this.state.arry.map(function(item,index){
-						
-							flag = true;
+						if(item.buy!="0.00"){
 							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
-											
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arry.length);*/
+							if(flag==_this.state.arry.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此月消息哦</p>
+						}												
 					})
+				
 				}()}
 				年
 				{function(){
-					var flag = false;
+					var flag = 0;
 					return _this.state.arr.map(function(item,index){
-						
-							flag = true;
+						if(item.buy!="0.00"){
 							return <div key={index} className="reportcon">
 								<div><p>{item.name}</p></div>
 								<div><p>{item.zhan}</p></div>
 								<div><p>{item.buy}</p></div>
 							</div>
-											
+						}else{							
+							flag++;
+						}
+						/*console.log(flag,_this.state.arr.length);*/
+							if(flag==_this.state.arr.length){
+							return <p key={'err'} style={{color:'#999999'}}>亲，没有此年消息哦</p>
+						}												
 					})
+				
 				}()}
 				
 					{/*<div><p>购物</p></div>

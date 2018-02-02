@@ -1,4 +1,4 @@
-.thismonthaccount{overflow: hidden;padding:20px 80px 0 80px;display: flex;justify-content: space-between;}
+.thismonthaccount{overflow: hidden;padding:20px 55px 0 55px;display: flex;justify-content: space-between;}
 .thismonthaccount p{display: flex;justify-content: space-between;flex-direction: column;text-align: center;}
 .thismonthaccount p span,.thismonthaccount p b{display: block;text-align: center;}
 .thismonthaccount p span{color: #999999;font-size: 12px;}
