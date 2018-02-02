@@ -43,7 +43,6 @@ class Xreportcon extends React.Component{
 			retype:retype,
 			id:id
 		}
-		console.log(obj);
 		//年
 		$.ajax({
 			type:"post",
@@ -52,7 +51,6 @@ class Xreportcon extends React.Component{
 			success:function(data){
 				if(data!=''){
 					data = JSON.parse(data);
-					/*console.log(data);*/
 					var arr1 = [{
 						name:"餐饮",
 						buy:0
@@ -129,7 +127,6 @@ class Xreportcon extends React.Component{
 							arr1[z]['zhan'] = 0+'%';
 						}
 					}
-					console.log(arr1,sum);
 					_this.setState({
 						arr:arr1
 					})
@@ -225,13 +222,12 @@ class Xreportcon extends React.Component{
 							arr1[z]['zhan'] = 0+'%';
 						}
 					}
-					console.log(arr1,sum1);
 					_this.setState({
 						arry:arr1
 					})
 					/*console.log(_this.state.arry);*/
 				}else{
-					console.log("没有找到哦");
+					//console.log("没有找到哦");
 				}
 			}
 		})
@@ -321,7 +317,6 @@ class Xreportcon extends React.Component{
 							arr1[z]['zhan'] = 0+'%';
 						}
 					}
-					console.log(arr1,sum2);
 					_this.setState({
 						arrr:arr1
 					})
@@ -332,7 +327,6 @@ class Xreportcon extends React.Component{
 			}
 		})
 	}else{
-		console.log("请登录");
 		location.href = "http://localhost:12345/#/reg";
 	}
 	}

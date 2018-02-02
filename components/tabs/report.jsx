@@ -59,7 +59,6 @@ class Xreport extends React.Component {
       date:document.querySelector(".weui-input").value,
       id:e.target.id
     })
-    console.log(document.querySelector(".weui-input").value);
   }
   changeId(e){
     this.setState({

@@ -42,7 +42,6 @@ class Xreportin extends React.Component{
 			retype:retype,
 			id:id
 		}
-		console.log(obj);
 		//年
 		$.ajax({
 			type:"post",
@@ -100,10 +99,7 @@ class Xreportin extends React.Component{
 						}
 						
 					}
-					console.log(arr1,sum);
-					console.log(obj.year+obj.month);
 					var reg = new RegExp(`${obj.year}${obj.month}`,"gi");
-					console.log(reg);
 					/*for(var x in data){
 						console.log(1);
 						console.log(data[x].reDate);
@@ -116,7 +112,7 @@ class Xreportin extends React.Component{
 					})
 					/*console.log(_this.state.arr);*/
 				}else{
-					console.log("没有找到哦");
+					//console.log("没有找到哦");
 				}
 			}
 		})
@@ -178,7 +174,6 @@ class Xreportin extends React.Component{
 						}
 						
 					}
-					console.log(arr1,sum1);
 					/*console.log(obj.year+obj.month);
 					var reg = new RegExp(`${obj.year}${obj.month}`,"gi");
 					console.log(reg);*/
@@ -194,7 +189,7 @@ class Xreportin extends React.Component{
 					})
 					/*console.log(_this.state.arry);*/
 				}else{
-					console.log("没有找到哦");
+					//console.log("没有找到哦");
 				}
 			}
 		})
@@ -256,7 +251,6 @@ class Xreportin extends React.Component{
 						}
 						
 					}
-					console.log(arr1,sum2);
 					/*console.log(obj.year+obj.month);
 					var reg = new RegExp(`${obj.year}${obj.month}`,"gi");
 					console.log(reg);*/
@@ -277,7 +271,6 @@ class Xreportin extends React.Component{
 			}
 		})
 		}else{
-		console.log("请登录");
 		location.href = "http://localhost:12345/#/reg";
 	}
 	}
@@ -298,7 +291,6 @@ class Xreportin extends React.Component{
 						}else{							
 							flag++;
 						}
-						/*console.log(flag,_this.state.arrr.length);*/
 							if(flag==_this.state.arrr.length){
 							return <p key={'err'} style={{color:'#999999'}}>亲，没有此日消息哦</p>
 						}												

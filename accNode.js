@@ -70,37 +70,31 @@ app.post('/searchcoder/delthiscorder', function(req, res) {
 /*----------------------------------ls------------------------------------------*/
 app.post("/giveDate",(req,res)=>{
 	res.append("Access-Control-Allow-Origin","*");
-	console.log(req.body);
 	var year = req.body.year+"%";
 	var retype = parseInt(req.body.retype);
 	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${req.body.year}%'`;
 	connection.query(s,(error,result1)=>{
 		if(error) throw error;
-		console.log(result1);
 		res.send(JSON.stringify(result1));
 	})
 })
 app.post("/giveMonth",(req,res)=>{
 	res.append("Access-Control-Allow-Origin","*");
-	console.log(req.body);
 	var year = req.body.year+req.body.month+"%";
 	var retype = parseInt(req.body.retype);
 	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${year}'`;
 	connection.query(s,(error,result)=>{
 		if(error) throw error;
-		console.log(result);
 		res.send(JSON.stringify(result));
 	})
 })
 app.post("/giveDay",(req,res)=>{
 	res.append("Access-Control-Allow-Origin","*");
-	console.log(req.body);
 	var year = req.body.year+req.body.month+req.body.day+"%";
 	var retype = parseInt(req.body.retype);
 	var s = `select reMoney,iconType,reDate from recordinfo where reType = ${retype} and userId = ${req.body.id} and reDate like '${year}'`;
 	connection.query(s,(error,result)=>{
 		if(error) throw error;
-		console.log(result);
 		res.send(JSON.stringify(result));
 	})
 })
@@ -110,7 +104,6 @@ app.get('/checkusername', function(req, res) {
 	res.append("Access-Control-Allow-Origin","*");
 	
 	var sql=`SELECT * FROM userinfo where uName='${req.query.username}'`;
-	// console.log(sql)
     connection.query(sql, function (error, results, fields) {
 		if(results==""){
 			res.send("0");
@@ -122,7 +115,6 @@ app.get('/checkusername', function(req, res) {
 // 电话号码登录时查找用户是否存在
 app.get('/checkuserphone', function(req, res) {
 	res.append("Access-Control-Allow-Origin","*");
-	console.log(req.query.userphone)
 	var sql=`SELECT * FROM userinfo where uPhone='${req.query.userphone}'`;
     connection.query(sql, function (error, results, fields) {
 		if(results==""){
@@ -178,6 +170,16 @@ app.post('/login', function(req, res) {
 	var sql=`INSERT INTO userinfo( uPhone, uPass, uName) VALUES ('${req.body.userphone}','${req.body.userpswd}','${req.body.username}')`
 	connection.query(sql, function (error, results, fields) {
 		res.send("1")
+    });
+});
+//获取capital账单信息
+app.get('/index/capital', function(req, res) {
+	res.append("Access-Control-Allow-Origin","*");
+	// var sql=`SELECT reId, userId, reDate, reTime, reType, reMoney, iconId, payKind, iconType FROM recordinfo WHERE userId='${req.query.id}'`
+	var sql=`SELECT reType, reMoney, payKind FROM recordinfo WHERE userId='${req.query.id}'`
+
+	connection.query(sql, function (error, results, fields) {
+		res.send(results)
     });
 });
 app.listen(1703);

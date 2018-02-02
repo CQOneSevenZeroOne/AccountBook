@@ -198,14 +198,11 @@ class Xtally extends React.Component {
   }
   componentDidMount(){
     if(document.cookie==""){
-      console.log(0)
       location.href="http://localhost:12345/#/reg";
     }else if($.cookie("user")==undefined){
-      console.log(1)
       location.href="http://localhost:12345/#/reg";
     }else{
-      console.log(2)
-        this.props.resetId();
+      this.props.resetId();
       var self=this;
       var today=new Date();
       var todate;
