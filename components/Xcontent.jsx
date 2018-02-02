@@ -15,15 +15,11 @@ class Xcontent extends React.Component {
         this.state = {
             arr: ['0.00','0.00','0.00','0.00','0.00','0.00']
         }
-        this.cheak = this.cheak.bind(this)
-        // this.changeDate = this.changeDate.bind(this);
-        // this.changeId = this.changeId.bind(this);
     }
     componentDidMount() {
         var _this = this;
         var str = $.cookie("user")
         var obj = JSON.parse(str)
-        console.log(obj)
         $.ajax({
             url: "http://localhost:1703/index/capital",
             type: "get",
@@ -31,7 +27,6 @@ class Xcontent extends React.Component {
                 id: obj.userid
             },
             success: function (arr) {
-                console.log(arr)
                 var a=0;
                 var b=0;
                 var c=0;
@@ -59,31 +54,6 @@ class Xcontent extends React.Component {
                 _this.setState({
                     arr:[returnFloat(a),returnFloat(b),returnFloat(c),returnFloat(d),returnFloat(e),sum]
                 })
-                console.log(_this.state.arr)
-                // console.log(arr1)
-                // var totalall = [0];
-                // for (var i in arr1) {
-                //     var total = [0];
-                //     for (var j in arr1[i]) {
-                //         var num = (arr1[i][j].reMoney) * 100;
-                //         if (arr1[i][j].reType == 0) {
-                //             num = -num;
-                //         } else {
-                //             num = Number(num);
-                //         }
-                //         total[0] += num;
-                //     }
-                //     total[0] /= 100;
-                //     totalall[0] += total[0]
-                //     total[0] = returnFloat(total[0])
-                //     arr1[i].unshift(total)
-                // }
-                // totalall[0] = returnFloat(totalall[0])
-                // arr1.unshift(totalall)
-                // console.log(arr1)
-                // _this.setState({
-                //     arr: arr1
-                // })
                 //函数补位
                 function returnFloat(value) {
                     var value = Math.round(parseFloat(value) * 100) / 100;
@@ -142,10 +112,6 @@ class Xcontent extends React.Component {
                 </div>
             </div>
         )
-    }
-    cheak(){
-        console.log(this.state.arr)
-        console.log(this.state.arr[1][0][0])
     }
 }
 export default Xcontent;

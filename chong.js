@@ -93,13 +93,12 @@ app.post('/login', function(req, res) {
 		res.send("1")
     });
 });
-//
+//获取capital账单信息
 app.get('/index/capital', function(req, res) {
-	console.log(req.query.id)
 	res.append("Access-Control-Allow-Origin","*");
 	// var sql=`SELECT reId, userId, reDate, reTime, reType, reMoney, iconId, payKind, iconType FROM recordinfo WHERE userId='${req.query.id}'`
 	var sql=`SELECT reType, reMoney, payKind FROM recordinfo WHERE userId='${req.query.id}'`
-	console.log(sql)
+
 	connection.query(sql, function (error, results, fields) {
 		res.send(results)
     });
